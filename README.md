@@ -1,2 +1,2 @@
 # gitStatisticsBarChart1
-Provides a graph forpaint number of commits for a given repository by month
+I have used JGit plugin to evaluate git statistics, Java 8, maven, Restful Webservice to send the JSON data to front end, JSChart for representing the data graphically, JQuery, HTML5(css,java script) to create the solution for the requirement given. Please share this with the client. Below is the output for number of commits done in 2017 for repository https://github.com/angular/angular.git 
