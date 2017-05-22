@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <base href="/"> -->
+    <script src="jscharts.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+var sortByMonth = function(arr) {
+	  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+	  	        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	  arr.sort(function(a, b){
+	      return months.indexOf(a[0])
+	           - months.indexOf(b[0]);
+	  });
+	  return arr;
+	}
+$.get('http://localhost:8080/gitStats/rest/gitRepoStatistics')
+.success(function(response){
+	var repo = response;
+	var statsArray = [];
+	for (var key in repo) {
+	       statsArray.push(new Array(key,repo[key]));
+	   }
+	console.log(statsArray);
+var myChart = new JSChart('chartcontainer', 'bar');
+myChart.setDataArray(sortByMonth(statsArray));
+//
+//myChart.colorize(['#44A622','#A7B629','#CAD857','#E4DB7B','#ECDE49','#ECC049','#EC9649','#D97431','#D95531']);
+myChart.setSize(550, 300);
+myChart.setBarValues(true);
+myChart.setBarSpacingRatio(40);
+myChart.setBarOpacity(1);
+myChart.setBarBorderWidth(0);
+myChart.setTitle('Commit history for Git Repository https://github.com/angular/angular.git');
+myChart.setTitleFontSize(10);
+myChart.setTitleColor('#607985');
+myChart.setAxisValuesColor('#607985');
+myChart.setAxisNameX('Month', '');
+myChart.setAxisNameY('Commits','' );
+myChart.setGridOpacity(0.8);
+//
+myChart.draw();
+}).error(function(response){
+	alert("error fetching statistics");
+});
+
+
+</script>
+<body>
+	 <div id="chartcontainer">This is just a replacement in case Javascript is not available or used for SEO purposes</div> 
+</body>
+</html> 
